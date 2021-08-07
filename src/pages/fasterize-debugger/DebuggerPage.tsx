@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SideBarComponent from '../../components/side-bar/side-bar.component';
 import TopBarComponent from '../../components/top-bar/top-bar.component';
 import SectionTitleBar from '../../components/section-title-bar/section-title-bar.component';
@@ -7,7 +7,7 @@ import ResultPlug from '../../shared/_models/reponse-plug.model';
 import UrlPLugService from '../../shared/serices/urlPlug.service';
 
 const DebuggerPage = () => {
-    const urlPlug = new UrlPLugService();
+    const urlPlugService = new UrlPLugService();
     const [url, setUrl] = useState<string>('');
     const [resultsPlug, setResultsPlug] = useState<ResultPlug[]>([]);
 
@@ -17,13 +17,23 @@ const DebuggerPage = () => {
     const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();  
         console.log(url);
-        urlPlug.getResultUrlPLug(url).then((res: ResultPlug) => {
+        urlPlugService.getResultUrlPLug(url).then((res: ResultPlug) => {
             console.log(res);
-            setResultsPlug(prevResult => [res, ...prevResult]);
-            console.log(resultsPlug);
-            
+            setResultsPlug(prevResult => {
+                const arr = [res, ...prevResult]
+                localStorage.setItem('resultsUrlPlug', JSON.stringify(arr));
+                return arr;
+            });
         })
     }
+
+    useEffect(() => {
+        const ulrsPlug = localStorage.getItem('resultsUrlPlug')
+        if (ulrsPlug) {
+            setResultsPlug(JSON.parse(ulrsPlug));
+        }
+    }, [])
+
 
     return (
         <div className="debuggerPage">
