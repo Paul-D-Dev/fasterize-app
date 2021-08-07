@@ -1,0 +1,9 @@
+@import '../../assets/styles/variables';
+
+.logo {
+    display: flex;
+    &__name {
+        color: $color-white;
+        font-weight: $font-weight-600;
+    }
+}
