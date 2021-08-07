@@ -1,0 +1,26 @@
+@import '../../assets/styles/variables';
+
+$height: 30px;
+
+.section-title-bar {
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+
+    h2 {
+        padding-left: 45px;
+        color: $color-title-h2;
+        font-size: 15px;
+        font-weight: $font-weight-700;
+        line-height: $height;
+        &:before {
+            content:'';
+            position: absolute;
+            left: 5px;
+            height: $height;
+            width: 30px;
+            background-color: $bg-color-point-section;
+            border-radius: $border-radius-points ;
+        }
+    }
+}
