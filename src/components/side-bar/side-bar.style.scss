@@ -1,0 +1,12 @@
+@import '../../assets/styles/variables';
+
+.sidebar {
+    height: 100vh;
+    max-width: 200px;
+    background: $bg-color-primary;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3C52C9, $bg-color-primary);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3C52C9, $bg-color-primary); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    padding-left: 14px;
+    padding-top: 20px;
+}
