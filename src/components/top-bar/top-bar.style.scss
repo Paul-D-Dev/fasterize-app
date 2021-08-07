@@ -1,0 +1,14 @@
+@import '../../assets/styles/variables';
+.topBar {
+    height: 58px;
+    background-color: $bg-color-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    h1 {
+        color: $color-title-header;
+        font-size: 16px;
+        font-weight: $font-weight-700;
+    }
+}
