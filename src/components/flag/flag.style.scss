@@ -1,0 +1,10 @@
+@import '../../assets/styles/variables';
+
+.flag {
+    background-color: $bg-color-flags;
+    color: $color-white;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: capitalize;
+    
+}
