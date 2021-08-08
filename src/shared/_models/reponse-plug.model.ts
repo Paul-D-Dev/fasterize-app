@@ -5,6 +5,8 @@ export default class ResponsePlug implements IResponsePlug {
     fstrzFlags?: string[];
     cloudfrontStatus?: string;
     cloudfrontPOP?: string;
+    url?: string;
+    date?: string;
 
     constructor(inputs: ResponsePlug) {
         return Object.assign(this, inputs);

@@ -4,4 +4,6 @@ export interface IResponsePlug {
     fstrzFlags?: string[];
     cloudfrontStatus?: string;
     cloudfrontPOP?: string;
+    url?: string;
+    date?: string;
 }
