@@ -37,6 +37,28 @@
             }
         }
     }
+
+    &__history {
+        width: 100%;
+        border-collapse: collapse;
+
+        .col {
+            &-url {
+                max-width: 200px;
+            }
+        }
+        .row {
+            height: 58px;
+            background-color: $bg-color-white;
+            border-radius: 2px;
+            &-url {
+
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+        
+    }
 }
 
 .sidebar {

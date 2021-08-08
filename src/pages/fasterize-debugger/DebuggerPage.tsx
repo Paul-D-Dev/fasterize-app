@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import FlagComponent from '../../components/flag/flag.component';
+import SectionTitleBar from '../../components/section-title-bar/section-title-bar.component';
 import SideBarComponent from '../../components/side-bar/side-bar.component';
 import TopBarComponent from '../../components/top-bar/top-bar.component';
-import SectionTitleBar from '../../components/section-title-bar/section-title-bar.component';
-import './debugger-page.style.scss'
-import ResultPlug from '../../shared/_models/reponse-plug.model';
 import UrlPLugService from '../../shared/serices/urlPlug.service';
+import ResultPlug from '../../shared/_models/reponse-plug.model';
+import './debugger-page.style.scss';
 
 const DebuggerPage = () => {
     const urlPlugService = new UrlPLugService();
@@ -14,10 +15,13 @@ const DebuggerPage = () => {
     const handlerUrlChange = (url: string) => {
         setUrl(url);
     }
-    const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();  
         console.log(url);
-        urlPlugService.getResultUrlPLug(url).then((res: ResultPlug) => {
+        const today = new Date(Date.now());
+        await urlPlugService.getResultUrlPLug(url).then((res: ResultPlug) => {
+            res.url = url;
+            res.date = today.toLocaleDateString();
             console.log(res);
             setResultsPlug(prevResult => {
                 const arr = [res, ...prevResult]
@@ -25,6 +29,19 @@ const DebuggerPage = () => {
                 return arr;
             });
         })
+    }
+
+    const checkPlugged = (plug: ResultPlug): string => {
+        const {plugged, fstrzFlags} = plug;
+        if (plugged) {
+            if (fstrzFlags?.includes('optimisée')) {
+                return 'green';
+            } else {
+                return 'orange';
+            }
+        } else {
+            return 'red';
+        }
     }
 
     useEffect(() => {
@@ -59,13 +76,47 @@ const DebuggerPage = () => {
                             resultsPlug.length === 0 ? 
                             '' 
                             : 
-                            resultsPlug.map( (plug, i) => 
-                                <div className="row" key={i}>
-                                    <p>
-                                    {plug.plugged ? 'true': 'false'}
-                                    </p>
-                                </div>
-                            )
+                            <table className="debuggerPage__history">
+                                <colgroup className="col">
+                                <col />
+                                <col className="col-url"/>
+                                <col />
+                                <col />
+                                <col />
+                                <col />
+                                </colgroup>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>URL</th>
+                                    <th>Status</th>
+                                    <th>Flags</th>
+                                    <th>Cloudefront status</th>
+                                    <th>Cloudfront pop</th>
+                                </tr>
+                                {
+                                    resultsPlug.map( (plug, i) => 
+                                    <tr className="row" key={i}>
+                                        {/* Date */}
+                                        <td>{plug.date}</td>
+                                        {/* URL */}
+                                        <td className="row-url">{plug.url}</td>
+                                        {/* Status */}
+                                        <td>{checkPlugged(plug)}</td>
+                                        {/* Flags */}
+                                        <td>
+                                            {plug.fstrzFlags?.map(flag =>
+                                                <FlagComponent key={i} flag={flag}/>
+                                            )}
+                                        </td>
+                                        {/* Cloudfront status */}
+                                        <td>{plug.cloudfrontStatus}</td>
+                                        {/* Cloudfront pop */}
+                                        <td>{plug.cloudfrontPOP}</td>
+                                    </tr>
+                                    )
+                                }
+                            </table>
+                            
                         }
                     </section>
                 </div>
