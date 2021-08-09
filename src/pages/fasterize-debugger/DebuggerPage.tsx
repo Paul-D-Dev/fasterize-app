@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CloudFrontStatusComponent from '../../components/cloudfront-status/cloudfront-status.component';
 import FlagComponent from '../../components/flag/flag.component';
+import LoaderComponent from '../../components/loader/loader.component';
 import SectionTitleBar from '../../components/section-title-bar/section-title-bar.component';
 import SideBarComponent from '../../components/side-bar/side-bar.component';
 import TopBarComponent from '../../components/top-bar/top-bar.component';
@@ -12,6 +13,8 @@ const DebuggerPage = () => {
     const urlPlugService = new UrlPLugService();
     const [url, setUrl] = useState<string>('');
     const [resultsPlug, setResultsPlug] = useState<ResultPlug[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
 
     const handlerUrlChange = (url: string) => {
         setUrl(url);
@@ -20,16 +23,21 @@ const DebuggerPage = () => {
         e.preventDefault();  
         console.log(url);
         const today = new Date(Date.now());
-        await urlPlugService.getResultUrlPLug(url).then((res: ResultPlug) => {
-            res.url = url;
-            res.date = today.toLocaleDateString();
-            console.log(res);
-            setResultsPlug(prevResult => {
-                const arr = [res, ...prevResult]
-                localStorage.setItem('resultsUrlPlug', JSON.stringify(arr));
-                return arr;
-            });
-        })
+        setLoading(true);
+        setError('');
+        await urlPlugService.getResultUrlPLug(url)
+            .then((res: ResultPlug) => {
+                res.url = url;
+                res.date = today.toLocaleDateString();
+                console.log(res);
+                setResultsPlug(prevResult => {
+                    const arr = [res, ...prevResult]
+                    localStorage.setItem('resultsUrlPlug', JSON.stringify(arr));
+                    return arr;
+                });
+            })
+            .catch(() => setError('Une erreur est survenue...'))
+            .finally(() => setLoading(false));
     }
 
     const checkPlugged = (plug: ResultPlug): string => {
@@ -46,7 +54,7 @@ const DebuggerPage = () => {
     }
 
     useEffect(() => {
-        const ulrsPlug = localStorage.getItem('resultsUrlPlug')
+        const ulrsPlug = localStorage.getItem('resultsUrlPlug');
         if (ulrsPlug) {
             setResultsPlug(JSON.parse(ulrsPlug));
         }
@@ -54,20 +62,31 @@ const DebuggerPage = () => {
 
 
     return (
-        <div className="debuggerPage">
+        <div className="dp">
             <SideBarComponent/>
             <main className="main">
                 <TopBarComponent title='FASTERIZE DEBUGGER'/>
                 <div className="content">
                     <section>
                         <SectionTitleBar title='HEADER DEBUGGER'/>
-                        <form className="debuggerPage__form"onSubmit={handlerSubmit}>
-                            <div className="debuggerPage__form__input">
-                                <label>Url to check</label>
-                                <input type="url" name="url" onChange={(e) => handlerUrlChange(e.target.value)}/>
+                        <form className="dp__form" onSubmit={handlerSubmit}>
+                            <div className="dp__form__content">
+                                <div className="dp__form__content__input">
+                                    <label>Url to check</label>
+                                    <input type="url" name="url" onChange={(e) => handlerUrlChange(e.target.value)}/>
+                                </div>
+                                <button type="submit" className="btn primary dp__form__content__btn-submit">
+                                    LAUNCH ANALYSIS
+                                    {loading ? <LoaderComponent/> : ''}    
+                                </button>
                             </div>
-                            <button type="submit" className="btn primary debuggerPage__form__btn-submit">LAUNCH ANALYSIS</button>
+                            {error !== '' ?
+                                <div className="dp__form-error">
+                                    {error}
+                                </div>
+                                 : ''}
                         </form>
+
                     </section>
 
                     <section>
@@ -77,7 +96,7 @@ const DebuggerPage = () => {
                             resultsPlug.length === 0 ? 
                             '' 
                             : 
-                            <table className="debuggerPage__history">
+                            <table className="dp__history">
                                 <colgroup className="col">
                                 <col />
                                 <col className="col-url"/>
