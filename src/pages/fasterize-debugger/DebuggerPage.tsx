@@ -4,6 +4,7 @@ import FlagComponent from '../../components/flag/flag.component';
 import LoaderComponent from '../../components/loader/loader.component';
 import SectionTitleBar from '../../components/section-title-bar/section-title-bar.component';
 import SideBarComponent from '../../components/side-bar/side-bar.component';
+import StatusCloudComponent from '../../components/status-cloud/status-cloud.component';
 import TopBarComponent from '../../components/top-bar/top-bar.component';
 import UrlPLugService from '../../shared/serices/urlPlug.service';
 import ResultPlug from '../../shared/_models/reponse-plug.model';
@@ -90,7 +91,6 @@ const DebuggerPage = () => {
                                 </div>
                                  : ''}
                         </form>
-
                     </section>
 
                     <section>
@@ -128,7 +128,7 @@ const DebuggerPage = () => {
                                             {/* URL */}
                                             <td className="row-url">{plug.url}</td>
                                             {/* Status */}
-                                            <td>{checkPlugged(plug)}</td>
+                                            <td><StatusCloudComponent color={checkPlugged(plug)}/></td>
                                             {/* Flags */}
                                             <td className="row-flags">
                                                 {plug.fstrzFlags?.map(flag =>
