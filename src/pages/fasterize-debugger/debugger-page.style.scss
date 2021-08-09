@@ -40,8 +40,14 @@
 
     &__history {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0 10px;
 
+        thead tr th{
+            font-size: 14px;
+            font-weight: 400;
+            color: RGBA(0, 0, 0, 0.5);
+        }
         .col {
             &-url {
                 max-width: 200px;
@@ -51,10 +57,15 @@
             height: 58px;
             background-color: $bg-color-white;
             border-radius: 2px;
+            box-shadow: 0 1px 1px 0 RGBA(0, 0, 0, 0.09);
             &-url {
 
                 text-overflow: ellipsis;
                 white-space: nowrap;
+            }
+
+            &-flags{
+                display: flex;
             }
         }
         
