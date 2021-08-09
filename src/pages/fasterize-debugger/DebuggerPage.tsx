@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import CloudFrontStatusComponent from '../../components/cloudfront-status/cloudfront-status.component';
 import FlagComponent from '../../components/flag/flag.component';
 import SectionTitleBar from '../../components/section-title-bar/section-title-bar.component';
 import SideBarComponent from '../../components/side-bar/side-bar.component';
@@ -85,36 +86,40 @@ const DebuggerPage = () => {
                                 <col />
                                 <col />
                                 </colgroup>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>URL</th>
-                                    <th>Status</th>
-                                    <th>Flags</th>
-                                    <th>Cloudefront status</th>
-                                    <th>Cloudfront pop</th>
-                                </tr>
-                                {
-                                    resultsPlug.map( (plug, i) => 
-                                    <tr className="row" key={i}>
-                                        {/* Date */}
-                                        <td>{plug.date}</td>
-                                        {/* URL */}
-                                        <td className="row-url">{plug.url}</td>
-                                        {/* Status */}
-                                        <td>{checkPlugged(plug)}</td>
-                                        {/* Flags */}
-                                        <td>
-                                            {plug.fstrzFlags?.map(flag =>
-                                                <FlagComponent key={i} flag={flag}/>
-                                            )}
-                                        </td>
-                                        {/* Cloudfront status */}
-                                        <td>{plug.cloudfrontStatus}</td>
-                                        {/* Cloudfront pop */}
-                                        <td>{plug.cloudfrontPOP}</td>
+                                <thead>
+                                    <tr className="head">
+                                        <th>Date</th>
+                                        <th>URL</th>
+                                        <th>Status</th>
+                                        <th>Flags</th>
+                                        <th>Cloudfront status</th>
+                                        <th>Cloudfront pop</th>
                                     </tr>
-                                    )
-                                }
+                                </thead>
+                                <tbody>
+                                    {
+                                        resultsPlug.map( (plug, i) => 
+                                        <tr className="row" key={i}>
+                                            {/* Date */}
+                                            <td>{plug.date}</td>
+                                            {/* URL */}
+                                            <td className="row-url">{plug.url}</td>
+                                            {/* Status */}
+                                            <td>{checkPlugged(plug)}</td>
+                                            {/* Flags */}
+                                            <td className="row-flags">
+                                                {plug.fstrzFlags?.map(flag =>
+                                                    <FlagComponent key={flag + i} flag={flag}/>
+                                                    )}
+                                            </td>
+                                            {/* Cloudfront status */}
+                                            <td><CloudFrontStatusComponent text={plug.cloudfrontStatus}/></td>
+                                            {/* Cloudfront pop */}
+                                            <td>{plug.cloudfrontPOP}</td>
+                                        </tr>
+                                        )
+                                    }
+                                </tbody>
                             </table>
                             
                         }
