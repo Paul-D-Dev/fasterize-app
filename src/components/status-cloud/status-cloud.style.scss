@@ -1,0 +1,15 @@
+@import '../../assets/styles/variables';
+
+.cloud-svg {
+    height: 21px;
+    width: 35px;
+    &.green {
+        fill: $bg-color-cloud-green;
+    }
+    &.red{
+        fill: $bg-color-cloud-red;
+    }
+    &.orange{
+        fill: $bg-color-cloud-orange;
+    }
+}
