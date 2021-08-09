@@ -73,7 +73,11 @@ const DebuggerPage = () => {
                             <div className="dp__form__content">
                                 <div className="dp__form__content__input">
                                     <label>Url to check</label>
-                                    <input type="url" name="url" onChange={(e) => handlerUrlChange(e.target.value)}/>
+                                    <input 
+                                        className="dp__form__content__input-url"
+                                        type="url" 
+                                        name="url" 
+                                        onChange={(e) => handlerUrlChange(e.target.value)}/>
                                 </div>
                                 <button type="submit" className="btn primary dp__form__content__btn-submit">
                                     LAUNCH ANALYSIS
