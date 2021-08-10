@@ -21,21 +21,24 @@ const DebuggerPage = () => {
         setUrl(url);
     }
     const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();  
-        console.log(url);
+        e.preventDefault();
+        setError('');
         const today = new Date(Date.now());
         setLoading(true);
-        setError('');
         await urlPlugService.getResultUrlPLug(url)
             .then((res: ResultPlug) => {
-                res.url = url;
-                res.date = today.toLocaleDateString();
-                console.log(res);
-                setResultsPlug(prevResult => {
-                    const arr = [res, ...prevResult]
-                    localStorage.setItem('resultsUrlPlug', JSON.stringify(arr));
-                    return arr;
-                });
+                if (res !== undefined) {
+                    res.url = url;
+                    res.date = today.toLocaleDateString();
+                    console.log(res);
+                    setResultsPlug(prevResult => {
+                        const arr = [res, ...prevResult]
+                        localStorage.setItem('resultsUrlPlug', JSON.stringify(arr));
+                        return arr;
+                    });
+                } else {
+                    setError("Nous n'avons pas eu de retour pour l'url demandée.");
+                }
             })
             .catch(() => setError('Une erreur est survenue...'))
             .finally(() => setLoading(false));
@@ -78,6 +81,7 @@ const DebuggerPage = () => {
                                         className="dp__form__content__input-url"
                                         type="url" 
                                         name="url" 
+                                        required
                                         onChange={(e) => handlerUrlChange(e.target.value)}/>
                                 </div>
                                 <button type="submit" className="btn primary dp__form__content__btn-submit">
@@ -133,8 +137,8 @@ const DebuggerPage = () => {
                                             <td className="row-flags">
                                                 <div className="row-flags-wrapper">
                                                     { plug.fstrzFlags ?
-                                                        plug.fstrzFlags?.map(flag =>
-                                                            <FlagComponent key={flag + i} flag={flag}/>
+                                                        plug.fstrzFlags?.map((flag, i) =>
+                                                            <FlagComponent key={'flag'+ i} flag={flag}/>
                                                             )
                                                             :''
                                                         }
