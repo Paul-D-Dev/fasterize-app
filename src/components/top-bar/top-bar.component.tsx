@@ -5,6 +5,7 @@ type Props = {
     title: string;
 }
 const TopBarComponent: FunctionComponent<Props> = ({title}) => {
+    document.title = title.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));;
     return(
         <div className='topBar'>
             <h1>{title}</h1>
@@ -12,4 +13,4 @@ const TopBarComponent: FunctionComponent<Props> = ({title}) => {
     )
 }
 
-export default TopBarComponent
+export default TopBarComponent;
