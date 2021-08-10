@@ -7,15 +7,17 @@ type Props = {
 
 const CloudFrontStatusComponent: FunctionComponent<Props> = ({text}) => {
     
-    const [bgColor, setBgColor] = useState('');
-
-    useEffect(() => {
-        setBgColor(textToBgColor[text])
-    }, []);
+    const [bgColor, setBgColor] = useState<string>('');
 
     const textToBgColor: { [key: string]: string } = {
         MISS: 'red',
     }
+    
+    useEffect(() => {
+        setBgColor(textToBgColor[text])
+    }, [text, textToBgColor]);
+
+
 
     return (
         <div className="cf__status">
