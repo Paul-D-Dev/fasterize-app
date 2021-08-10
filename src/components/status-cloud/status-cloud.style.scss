@@ -3,6 +3,8 @@
 .cloud-svg {
     height: 21px;
     width: 35px;
+    transform: rotateY(180deg);
+
     &.green {
         fill: $bg-color-cloud-green;
     }
