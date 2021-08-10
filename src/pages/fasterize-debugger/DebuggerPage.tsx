@@ -66,7 +66,7 @@ const DebuggerPage = () => {
         <div className="dp">
             <SideBarComponent/>
             <main className="main">
-                <TopBarComponent title='FASTERIZE DEBUGGER'/>
+                <TopBarComponent title='fasterize debugger'/>
                 <div className="content">
                     <section>
                         <SectionTitleBar title='HEADER DEBUGGER'/>
@@ -124,21 +124,31 @@ const DebuggerPage = () => {
                                         resultsPlug.map( (plug, i) => 
                                         <tr className="row" key={i}>
                                             {/* Date */}
-                                            <td>{plug.date}</td>
+                                            <td className="row-date">{plug.date}</td>
                                             {/* URL */}
                                             <td className="row-url">{plug.url}</td>
                                             {/* Status */}
                                             <td><StatusCloudComponent color={checkPlugged(plug)}/></td>
                                             {/* Flags */}
                                             <td className="row-flags">
-                                                {plug.fstrzFlags?.map(flag =>
-                                                    <FlagComponent key={flag + i} flag={flag}/>
-                                                    )}
+                                                <div className="row-flags-wrapper">
+                                                    { plug.fstrzFlags ?
+                                                        plug.fstrzFlags?.map(flag =>
+                                                            <FlagComponent key={flag + i} flag={flag}/>
+                                                            )
+                                                            :''
+                                                        }
+                                                </div>
                                             </td>
                                             {/* Cloudfront status */}
-                                            <td><CloudFrontStatusComponent text={plug.cloudfrontStatus}/></td>
+                                            <td className="row-cf-status">
+                                                {plug?.cloudfrontStatus ? 
+                                                <CloudFrontStatusComponent text={plug?.cloudfrontStatus}/>
+                                                :''
+                                            }
+                                            </td>
                                             {/* Cloudfront pop */}
-                                            <td>{plug.cloudfrontPOP}</td>
+                                            <td>{plug?.cloudfrontPOP}</td>
                                         </tr>
                                         )
                                     }
