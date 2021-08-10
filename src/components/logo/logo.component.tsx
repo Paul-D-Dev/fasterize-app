@@ -1,10 +1,11 @@
 import React from 'react';
+import FasterizeLogo from '../../assets/svg/fasterize_logo.svg';
 import './logo.style.scss';
 
 const LogoComponent = () => {
     return (
         <div className='logo'>
-            <div className="logo__icon"></div>
+            <img className="logo__icon" src={FasterizeLogo} alt="Fasterize Logo" />
             <div className="logo__name">Fasterize</div>
         </div>   
     )
