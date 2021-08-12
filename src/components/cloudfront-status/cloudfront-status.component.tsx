@@ -11,11 +11,13 @@ const CloudFrontStatusComponent: FunctionComponent<Props> = ({text}) => {
 
     const textToBgColor: { [key: string]: string } = {
         MISS: 'red',
+        ERROR: 'red',
+        HIT: 'red',
     }
     
     useEffect(() => {
         setBgColor(textToBgColor[text])
-    }, [text, textToBgColor]);
+    }, []);
 
 
 

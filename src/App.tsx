@@ -8,9 +8,6 @@ function App() {
     <Router>
 
     <div className="App">
-      <header className="App-header">
-
-      </header>
       <Route path='/' component={DebuggerPage}></Route>
     </div>
 

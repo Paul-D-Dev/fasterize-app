@@ -8,7 +8,7 @@ const TopBarComponent: FunctionComponent<Props> = ({title}) => {
     document.title = title.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));;
     return(
         <div className='topBar'>
-            <h1>{title}</h1>
+            <h1 data-testid="topBar-title">{title}</h1>
         </div>
     )
 }
