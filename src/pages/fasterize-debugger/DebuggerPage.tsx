@@ -26,21 +26,32 @@ const DebuggerPage = () => {
         const today = new Date(Date.now());
         setLoading(true);
         await urlPlugService.getResultUrlPLug(url)
-            .then((res: ResultPlug) => {
-                if (res !== undefined) {
-                    res.url = url;
-                    res.date = today.toLocaleDateString();
-                    console.log(res);
-                    setResultsPlug(prevResult => {
-                        const arr = [res, ...prevResult]
+            .then((res: ResultPlug | any) => {
+                if (res.error === undefined) {
+                    const payload = res.payload;
+                    payload.url = url;
+                    payload.date = today.toLocaleDateString();
+                    return setResultsPlug(prevResult => {
+                        const arr = [payload, ...prevResult]
                         localStorage.setItem('resultsUrlPlug', JSON.stringify(arr));
                         return arr;
                     });
-                } else {
-                    setError("Nous n'avons pas eu de retour pour l'url demandée.");
+                } else { 
+                    switch (res.error) {
+                        case 400:
+                            setError('Ce n\'est pas une url valide.');
+                            break;
+                        case 404:
+                            setError('Votre demande n\'a pas pu aboutir.');
+                            break;
+                        default:
+                            setError('Une erreur est survenue...')
+                            break;
+                    }
                 }
+
             })
-            .catch(() => setError('Une erreur est survenue...'))
+            .catch((e) => setError('Une erreur est survenue...'))
             .finally(() => setLoading(false));
     }
 
@@ -79,7 +90,7 @@ const DebuggerPage = () => {
                                     <label>Url to check</label>
                                     <input 
                                         className="dp__form__content__input-url"
-                                        type="url" 
+                                        type="text" 
                                         name="url" 
                                         required
                                         onChange={(e) => handlerUrlChange(e.target.value)}/>
