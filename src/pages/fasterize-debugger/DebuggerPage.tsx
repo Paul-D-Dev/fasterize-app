@@ -137,9 +137,9 @@ const DebuggerPage = () => {
                                             <td className="row-flags">
                                                 <div className="row-flags-wrapper">
                                                     { plug.fstrzFlags ?
-                                                        plug.fstrzFlags?.map((flag, i) =>
+                                                        plug.fstrzFlags?.map((flag, i?) =>
                                                             <FlagComponent key={'flag'+ i} flag={flag}/>
-                                                            )
+                                                        )
                                                             :''
                                                         }
                                                 </div>
