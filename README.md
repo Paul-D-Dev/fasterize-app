@@ -22,7 +22,5 @@ Il y a également un tableau qui récapitule les recherches faites avec des stat
   - Typescript
   - Jest
 
-### `npm start`
-
 
 
