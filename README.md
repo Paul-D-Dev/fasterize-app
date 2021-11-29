@@ -1,29 +1,28 @@
 # fasterize-app
 
-## Available Scripts
+## Contexte
 
-In the project directory, you can run:
+Ce projet présente une feature demandée lors d'un entretien d'embauche. Le but de l'exercice était de démontrer mes compétences sur la technologie React et la production de tests unitaires. J'ai eu une semaine pour produire cette exercice ainsi que le [back office](https://github.com/Paul-D-Dev/fasterize-api).
+La feature présente un champs de type email avec un bouton de validation. Une requête est soumise à l'api pour savoir si l'url demandée est connectée avec le moteur fasterize.
+
+Il y a également un tableau qui récapitule les recherches faites avec des statuts qui dépendent de la réponse de l'api. Le tableau est stocké dans le localstorage afin que lorsque l'utilisateur se reconnecte il puisse conserver son historique de recherches.
+
+## Tâches réalisées
+
+  - Création d'un formulaire
+  - Utilisation de Hooks (useEffect, useState)
+  - Appel et connexion à une API
+  - Gestion d'erreur de l'api
+  - Présentation d'un loader en attendant la réponse de l'API
+  - Gestion data dans le localstorage
+  - Tests unitaires
+
+## Environnement technique
+  - React
+  - Typescript
+  - Jest
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
