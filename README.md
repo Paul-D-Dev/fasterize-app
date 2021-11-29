@@ -11,16 +11,17 @@ Il y a également un tableau qui récapitule les recherches faites avec des stat
 
   - Création d'un formulaire
   - Utilisation de Hooks (useEffect, useState)
-  - Appel et connexion à une API
-  - Gestion d'erreur de l'api
+  - Utilisation de la librairie "axios" pour gérer les requêtes HTTP
+  - Présentation d'une liste en forme tableau
+  - Connexion à une API
+  - Gestion d'erreur de l'API
   - Présentation d'un loader en attendant la réponse de l'API
-  - Gestion data dans le localstorage
+  - Gestion de l'historique de recherches dans le local storage
   - Tests unitaires
 
 ## Environnement technique
   - React
   - Typescript
-  - Jest
 
 
 
